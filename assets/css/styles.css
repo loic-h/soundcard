@@ -1,0 +1,188 @@
+@font-face {
+    font-family: 'Interstate';
+    src: url('../fonts/interstate.eot');
+    src: url('../fonts/interstate.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/interstate.woff') format('woff'),
+         url('../fonts/interstate.ttf') format('truetype'),
+         url('../fonts/interstate.svg#interstateregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body, html { 
+	height: 100%;
+	width: 100%;
+	margin: 0;
+}
+
+html, input, button {
+	font-family: "Interstate","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Garuda,Verdana,Tahoma,sans-serif;
+}
+
+h1, h2, h3 { 
+	margin: 0; 
+}
+
+input:focus, select:focus, textarea:focus, button:focus {
+    outline: none;
+}
+
+#container { 
+	width: 100%;
+	height: 100%;
+	background: #fff;
+}
+header { 
+	height: 46px;
+	width: 100%;
+	background: #333;
+}
+
+header h1 {
+	background: linear-gradient(#f60,#f30);
+	height: 46px;
+	width: 85px; 
+	margin-left: 30px; 
+}
+
+header h1 img { 
+	display: block;
+	height: 100%;
+	width: 100%; 
+}
+
+.main {
+	padding: 30px;
+	text-align: center;
+}
+
+.imageContainer {
+	width: 612px;
+	height: 612px;
+	border: #333 solid 1px;
+	background: #ebf2f8;
+	display: inline-block;
+}
+
+.imageContainer .search { 
+	margin: 27px;
+	width: 552px;
+	height: 552px;
+	border: #FFF dashed 3px;
+	border-radius: 30px;
+	text-align: center;
+	font-size: 21px;
+}
+
+.imageContainer .search .inputWrapper {
+	display: inline-block;
+	margin-bottom: 12px;
+	position: relative;
+	height: 42px;
+	width: 432px;
+	margin-top: 33px;
+}
+
+.imageContainer .search input, 
+.imageContainer .search button,
+.imageContainer .search span {
+	height: 30px;
+	width: 396px;
+	border-radius: 3px;
+	border: none;
+	padding: 6px 18px;
+	display: inline-block;
+	height: 42px;
+	width: 432px;
+	font-size: inherit;
+}
+
+.imageContainer .search span {
+	position: absolute;
+	top: 11px;
+	left: 15px;
+	z-index: 2;
+	padding: 0;
+	width: auto;
+	vertical-align: baseline;
+}
+
+.imageContainer .search input {
+	padding-left: 27px;
+}
+
+.imageContainer .search button {
+	background: #3f729b;
+	color: #fff;
+}
+
+::-webkit-input-placeholder,
+.imageContainer .search span {
+	color: #d4e9f5;
+}
+
+.imageContainer .search .results {
+	height: 390px;
+	width: 492px;
+	margin: 30px;
+	position: relative;
+	overflow: hidden;
+}
+
+.imageContainer .search .results .content {
+	width: 10000px;
+	height: 351px;
+	text-align: left;
+}
+
+.imageContainer .search .results .content .page {
+	display: inline-block;
+	width: 492px;
+	vertical-align: top;
+}
+
+.imageContainer .search .results .remote a {
+	border-radius: 50%;
+	width: 12px;
+	height: 12px; 
+	background: white;
+	display: inline-block;
+	margin: 6px;
+}
+
+.imageContainer .search .results .remote a:hover,
+.imageContainer .search .results .remote a.select {
+	-webkit-transform-origin: 50% 50%;
+	-webkit-transform: scale(1.5);
+}
+
+.imageContainer .search.instagram .results {
+
+}
+
+.imageContainer .search .loader {
+	position: absolute;
+	top: 0;
+	bottom: 30px;
+	left: 0;
+	right: 0;
+	background: url(../img/loader-instagram.gif) no-repeat center center;
+	z-index: 2;
+}
+
+.imageContainer .search .results .result {
+	display: inline-block;
+	margin: 3px;
+	border: #ebf2f8 solid 3px;
+}
+
+.imageContainer .search .results .result:hover,
+.imageContainer .search .results .result.select {
+	border-color: #3f729b;
+}
+
+.imageContainer .search .results .result img {
+	display: block;
+}
+
