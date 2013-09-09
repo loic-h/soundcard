@@ -28,12 +28,23 @@ input:focus, select:focus, textarea:focus, button:focus {
     outline: none;
 }
 
+/* Prevent the text contents of draggable elements from being selectable. */
+[draggable] {
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+	/* Required to make elements draggable in old WebKit */
+	-khtml-user-drag: element;
+	-webkit-user-drag: element;
+}
+
 #container { 
 	width: 100%;
 	height: 100%;
 	background: #fff;
-	-webkit-user-select: none;
 }
+
 header { 
 	height: 46px;
 	width: 100%;
@@ -59,142 +70,36 @@ header h1 img {
 }
 
 /**********************************
-	IMAGE FACTORY
+	FACTORY
 **********************************/
-
-.imageContainer {
+.Factory {
 	width: 612px;
 	height: 612px;
 	border: #333 solid 1px;
+	display: inline-block;
+	position: relative;
+}
+
+/**********************************
+	IMAGE FACTORY
+**********************************/
+
+.FactoryImageManager {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.imageContainer {
+	width: 100%;
+	height: 100%;
 	background: url(../img/bg-image-manager.gif) no-repeat center center;
-	display: inline-block;
+	position: relative;
 }
 
-.imageContainer .search { 
-	/*margin: 27px;
-	width: 552px;
-	height: 552px;*/
-	/*border: #FFF dashed 3px;
-	border-radius: 30px;*/
+.imageContainer .image {
 	width: 100%;
 	height: 100%;
-	text-align: center;
-	font-size: 21px;
-}
-
-.imageContainer .search .inputWrapper {
-	display: inline-block;
-	margin-bottom: 12px;
-	position: relative;
-	height: 42px;
-	width: 550px;
-	margin-top: 33px;
-}
-
-.imageContainer .search input, 
-.imageContainer .search button,
-.imageContainer .search span {
-	border: none;
-	padding: 6px 18px;
-	display: inline-block;
-	height: 42px;
-	width: 550px;
-	font-size: inherit;
-}
-
-.imageContainer .search span {
-	position: absolute;
-	top: 9px;
-	left: 15px;
-	z-index: 2;
-	padding: 0;
-	width: auto;
-	vertical-align: baseline;
-}
-
-.imageContainer .search input {
-	padding-left: 27px;
-	border-bottom: #000 solid 1px;
-	background: rgba(0,0,0,0.8);
-	color: white;
-}
-
-.imageContainer .search button {
-	background: rgba(0, 102, 204, 0.8);
-	color: #fff;
-}
-
-::-webkit-input-placeholder,
-.imageContainer .search span {
-	color: rgba(255, 255, 255, 0.5);
-	font-style: italic;
-}
-
-.imageContainer .search .results {
-	height: 100%;
-	width: 100%;
-	position: relative;
-	overflow: hidden;
-	display: inline-block;
-	margin-top: 30px;
-}
-
-.imageContainer .search .results .content {
-	width: 10000px;
-	text-align: left;
-}
-
-.imageContainer .search .results .content .page {
-	display: inline-block;
-	width: 594px;
-	vertical-align: top;
-	padding: 0 9px;
-}
-
-.imageContainer .search .results .remote a {
-	border-radius: 50%;
-	width: 6px;
-	height: 6px; 
-	background: #333;
-	display: inline-block;
-	margin: 6px;
-}
-
-.imageContainer .search .results .remote a:hover,
-.imageContainer .search .results .remote a.select {
-	-webkit-transform-origin: 50% 50%;
-	-webkit-transform: scale(1.5);
-}
-
-.imageContainer .search.instagram .results {
-
-}
-
-.imageContainer .search .loader {
-	position: absolute;
-	top: 0;
-	bottom: 30px;
-	left: 0;
-	right: 0;
-	background: url(../img/loader-instagram.gif) no-repeat center center;
-	z-index: 2;
-}
-
-.imageContainer .search .results .result {
-	display: inline-block;
-	margin: 21px;
-	border: rgba(250, 250, 250, 0) solid 3px;
-	opacity: 0.8;
-}
-
-.imageContainer .search .results .result:hover,
-.imageContainer .search .results .result.select {
-	/*border-color: rgba(0, 102, 204, 0.8);*/
-	opacity: 1;
-}
-
-.imageContainer .search .results .result img {
-	display: block;
 }
 
 /**********************************
@@ -202,7 +107,7 @@ header h1 img {
 **********************************/
 
 .FactorySoundManager {
-	padding: 30px;
+	padding: 15px;
 }
 
 .FactorySoundManager .remote {
@@ -224,7 +129,183 @@ header h1 img {
 	color: white;
 	background: rgba(0,0,0,.8);
 	top: -150%;
-	left: 25%;
+	/*left: 25%;*/
 	padding: 18px 30px;
 	/*border-radius: 3px;*/
+	left: 50%;
+	width: 400px;	
+	margin: 0: auto;
+	left: 0;
+	right: 0;
+}
+
+.tracksContainer {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.tracksContainer .anchor {
+	border-radius: 50%;
+	width: 15px;
+	height: 15px; 
+	background: #fe3400;
+	border: #333 solid 3px;
+	position: absolute;
+	display: block;
+	padding: 0;
+}
+
+/**********************************
+	SEARC FACTORY
+**********************************/
+
+.Factory .search { 
+	/*margin: 27px;
+	width: 552px;
+	height: 552px;*/
+	/*border: #FFF dashed 3px;
+	border-radius: 30px;*/
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	font-size: 21px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.Factory .search .inputWrapper {
+	display: inline-block;
+	margin-bottom: 12px;
+	position: relative;
+	height: 42px;
+	width: 550px;
+	margin-top: 33px;
+}
+
+.Factory .search input, 
+.Factory .search button,
+.Factory .search span {
+	border: none;
+	padding: 6px 18px;
+	display: inline-block;
+	height: 42px;
+	width: 550px;
+	font-size: inherit;
+}
+
+.Factory .search span {
+	position: absolute;
+	top: 9px;
+	left: 15px;
+	z-index: 2;
+	padding: 0;
+	width: auto;
+	vertical-align: baseline;
+}
+
+.Factory .search input {
+	padding-left: 27px;
+	border-bottom: #000 solid 1px;
+	background: rgba(0,0,0,0.8);
+	color: white;
+}
+
+.Factory .search button {
+	background: rgba(0, 102, 204, 0.8);
+	color: #fff;
+}
+
+::-webkit-input-placeholder,
+.Factory .search span {
+	color: rgba(255, 255, 255, 0.5);
+	font-style: italic;
+}
+
+.Factory .search .results {
+	height: 453px;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+	margin-top: 30px;
+}
+
+.Factory .search .results .content {
+	width: 10000px;
+	text-align: left;
+}
+
+.Factory .search .results .content .page {
+	display: inline-block;
+	width: 612px;
+	vertical-align: top;
+	text-align: center;
+}
+
+.Factory .search .results .remote a {
+	border-radius: 50%;
+	width: 6px;
+	height: 6px; 
+	background: #333;
+	display: inline-block;
+	margin: 6px;
+}
+
+.Factory .search .results .remote a:hover,
+.Factory .search .results .remote a.select {
+	-webkit-transform-origin: 50% 50%;
+	-webkit-transform: scale(1.5);
+}
+
+.Factory .search.instagram .results {
+
+}
+
+.Factory .search .loader {
+	position: absolute;
+	top: 0;
+	bottom: 30px;
+	left: 0;
+	right: 0;
+	background: url(../img/loader-instagram.gif) no-repeat center center;
+	z-index: 2;
+}
+
+.Factory .search .results .result {
+	display: inline-block;
+	margin: 21px;
+	border: rgba(250, 250, 250, 0) solid 3px;
+	opacity: 0.8;
+}
+
+.Factory .search .results .result:hover,
+.Factory .search .results .result.select {
+	/*border-color: rgba(0, 102, 204, 0.8);*/
+	opacity: 1;
+}
+
+.Factory .search .results .result img {
+	display: block;
+}
+
+.Factory .search.soundcloud {
+	background: rgba(0,0,0,0.8);
+}
+
+.Factory .search.soundcloud input {
+	background: rgba(250,250,250,0.8);
+	color: #000;
+	padding-left: 18px;
+}
+
+.Factory .search.soundcloud button {
+	background: rgba(254, 52, 0, 0.8);
+}
+
+.Factory .search.soundcloud span {
+	display: none;
 }

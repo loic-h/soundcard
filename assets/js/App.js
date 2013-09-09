@@ -6,7 +6,9 @@ define([
 
 		startup: function() {
 
-			Factory.startup();
+			Factory.startup({
+				container: $('.main')
+			});
 
 		}
 	

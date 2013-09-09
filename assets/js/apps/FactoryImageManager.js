@@ -4,10 +4,12 @@ define([
 	'signals',
 	'text!templates/FactoryImageManager.tpl',
 	'text!templates/ResultInstagram.tpl',
-	'apps/ResultManager'
-], function($, mustache, tpl_FactoryImageManager, signals, tpl_ResultInstagram, ResultManager) {
+	'apps/SearchManager'
+], function($, mustache, signals, tpl_FactoryImageManager, tpl_ResultInstagram, SearchManager) {
 
 	var $container = null,
+		$wrap = null,
+		wrap = null,
 		$loader = null,
 		$image = null,
 
@@ -15,7 +17,7 @@ define([
 		access_parameters = {
 			client_id:'e8abec9b1f414900a64ba508441cf7d9'
 		},
-		instagramResultManager = null,
+		searchManager = null,
 		results = null,
 		events = null;
 
@@ -23,29 +25,43 @@ define([
 		startup: function(options) {
 			debug('FactoryImageManager::startup');
 
-			$container = $(options.container);
+			$container = options.container;
 			$container.append(mustache.render(tpl_FactoryImageManager));
 
 			$image = $container.find('.image');
 
+			$wrap = $container.find('.imageContainer');
+			wrap = $container.find('.imageContainer')[0];
+			enableEvents(wrap);
+			wrap.addEvent('dragover', function(e) {
+				e.preventDefault();
+			});
+			wrap.addEventListener('drop', this.onDrop.bind(this));
+
 			this.events = {
-				onComplete: new signals.Signal()
+				onComplete: new signals.Signal(),
+				onDrop: new signals.Signal()
 			};
 			
-			instagramResultManager = new ResultManager({
-				classe: 'instagram',
-				container: $container.find('.imageContainer'),
+			searchManager = new SearchManager({
+				tpl_datas : {
+					classe: 'instagram',
+					label: 'Search on Instagram',
+					placeholder: 'hashtag'
+				},
 				doSearch: this.doInstagramSearch.bind(this),
 				onSearchComplete: this.onInstagramSearchComplete.bind(this),
 				onResultClick: this.onInstagramResultClick.bind(this)
 			});
+
+			searchManager.show();
 		},
 
 		doInstagramSearch: function(query) {
 			debug('FactoryImageManager::doInstagramSearch');
 			var url = mustache.render(instagramUrl, {tag: query});
 
-			$.getJSON(url, access_parameters, instagramResultManager.onSearchComplete.bind(instagramResultManager));
+			$.getJSON(url, access_parameters, searchManager.onSearchComplete.bind(searchManager));
 		},
 
 		onInstagramSearchComplete: function(parameters) {
@@ -57,14 +73,22 @@ define([
 					node = mustache.render(tpl_ResultInstagram, {src: src, alt: alt});
 				nodes.push(node);
 			});
-			instagramResultManager.populate(nodes);
+			searchManager.populate(nodes);
 		},
 
 		onInstagramResultClick: function(index) {
 			var selection = this.results[index];
 			$image.append('<img src="'+selection.images.standard_resolution.url+'" />');
-			instagramResultManager.hide();
+			searchManager.hide();
 			this.events.onComplete.dispatch();
+		},
+
+		onDrop: function(e) {
+			if (e.preventDefault) {
+				e.preventDefault(); 
+			}
+			this.events.onDrop.dispatch(e.offsetX, e.offsetY);
+			return false;
 		}
 	}
 });

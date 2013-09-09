@@ -16,6 +16,7 @@ $page = getGetPostVars('page');
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- <link rel="stylesheet" href="/assets/css/normalize.css"> -->
 		<link rel="stylesheet" href="/assets/css/styles.css">
+		<script type="text/javascript" src="http://connect.soundcloud.com/sdk.js"></script>
 		<?php
 		if(IS_IN_PROD) { 
 		?>
