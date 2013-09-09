@@ -59,7 +59,8 @@ define([
 				},
 				doSearch: this.doSoundcloudSearch.bind(this),
 				onSearchComplete: this.onSoundcloudSearchComplete.bind(this),
-				onResultClick: this.onSoundcloudResultClick.bind(this)
+				onResultClick: this.onSoundcloudResultClick.bind(this),
+				offset: 4
 			});
 
 			this.initSoundcloud();
@@ -121,15 +122,21 @@ define([
 		},
 
 		onSoundcloudSearchComplete: function(tracks) {
-			var nodes = [];
+			var nodes = [],
+				results = [];
 			tracks.forEach(function(track) {
 				var track_result = new TrackResult({
-					
+					datas: track
 				}),
-					node = track_result.getNode();
+				node = track_result.getNode();
 				nodes.push(node);
+				results.push(track_result);
 			});
 			searchManager.populate(nodes);
+			var $results = searchManager.$wrap.find('.result');
+			results.forEach(function(result, index) {
+				result.init($results[index]);
+			});
 		},
 
 		onSoundcloudResultClick: function() {

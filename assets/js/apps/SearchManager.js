@@ -35,6 +35,8 @@ define([
 			
 		this.$button.on('click', this.doSearch.bind(this));
 
+		this.offset = typeof this.options.offset !== "undefined" ? this.options.offset : offset;
+
 		this.initLoader();
 
 		this.hide();
@@ -54,16 +56,15 @@ define([
 
 		showLoader: function() {
 			debug('showLoader');
-			debug(this.$loader);
 			this.$loader.show();
 		},
 
 		populate: function(nodes) {
-			var pages_nb = Math.ceil(nodes.length / offset);
+			var pages_nb = Math.ceil(nodes.length / this.offset);
 			for(var index_page = 0; index_page < pages_nb; index_page++) {
 				var page = $('<div class="page"></div>'),
 					remote_elt = $('<a href="#"></a>');
-				for(var index_node = index_page * offset; index_node < (index_page + 1) * offset; index_node++) {
+				for(var index_node = index_page * this.offset; index_node < (index_page + 1) * this.offset; index_node++) {
 					var node = $(nodes[index_node]);
 					page.append(node);
 					node.on('click', (function(index) {

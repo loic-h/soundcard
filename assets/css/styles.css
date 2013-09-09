@@ -28,6 +28,10 @@ input:focus, select:focus, textarea:focus, button:focus {
     outline: none;
 }
 
+button {
+	cursor: pointer;
+}
+
 /* Prevent the text contents of draggable elements from being selectable. */
 [draggable] {
 	-moz-user-select: none;
@@ -308,4 +312,60 @@ header h1 img {
 
 .Factory .search.soundcloud span {
 	display: none;
+}
+
+.Factory .search.soundcloud .results .result {
+	width: 450px;
+	height: 80px;
+	background: none;
+	border: none;
+	margin: 0;
+	margin-bottom: 12px;
+	overflow: hidden;
+	position: relative;
+
+}
+
+.Factory .search.soundcloud .results .result .wave {
+	width: 100%;
+	height: 200%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 0;
+}
+
+.Factory .search.soundcloud .results .result .infos {
+	position: absolute;
+	text-align: left;
+	z-index: 1;
+	bottom: 6px;
+	left: 6px;
+}
+
+.Factory .search.soundcloud .results .result button {
+	border-radius: 50%;
+	width: 21px;
+	height: 21px; 
+	background: #fe3400;
+	padding: 0;
+}
+
+.Factory .search.soundcloud .results .result button:hover {
+	background: #000;
+}
+
+.Factory .search.soundcloud .results .result h2 {
+	color: #fe3400;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.Factory .search.soundcloud .results .result h3 {
+	color: #fe3400;
+	font-size: 10px;
+}
+
+.Factory .search.soundcloud .results .remote a {
+	background: #fff;
 }
