@@ -1,6 +1,6 @@
 <div class="search {{classe}}">
 	<div class="inputWrapper">
-		<input type="search" name="imagesearch" autofocus="autofocus" placeholder="{{placeholder}}" value="test" />
+		<input type="search" name="imagesearch" autofocus="autofocus" placeholder="{{placeholder}}" value="California" />
 		<span>#</span>
 	</div>
 	<button type="button">{{label}}</button>

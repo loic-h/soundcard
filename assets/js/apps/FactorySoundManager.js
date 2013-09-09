@@ -20,6 +20,7 @@ define([
 		bind_addDragStart = null,
 		bind_addDragEnd = null,
 		searchManager = null,
+		playingSound = null,
 		client_id = '77f88e1586bf6138efb00fe095e69a87',
 		redirect_uri = 'http://soundcard.lan/request.php?t=soundcloud';
 
@@ -129,14 +130,24 @@ define([
 					datas: track
 				}),
 				node = track_result.getNode();
+				track_result.events.play.add(this.onPlaySound.bind(this, track_result));
 				nodes.push(node);
 				results.push(track_result);
-			});
+			}.bind(this));
 			searchManager.populate(nodes);
 			var $results = searchManager.$wrap.find('.result');
 			results.forEach(function(result, index) {
 				result.init($results[index]);
 			});
+		},
+
+		onPlaySound: function(track) {
+			debug('onPlaySound');
+			debug(this.playingSound);
+			if(this.playingSound) {
+				this.playingSound.stop();
+			}
+			this.playingSound = track;
 		},
 
 		onSoundcloudResultClick: function() {

@@ -326,6 +326,10 @@ header h1 img {
 
 }
 
+.Factory .search.soundcloud .results .result.playing {
+	opacity: 1;
+}
+
 .Factory .search.soundcloud .results .result .wave {
 	width: 100%;
 	height: 200%;
@@ -347,12 +351,13 @@ header h1 img {
 	border-radius: 50%;
 	width: 21px;
 	height: 21px; 
-	background: #fe3400;
+	background: #fe3400 url(../img/play.png) no-repeat center center;
 	padding: 0;
 }
 
-.Factory .search.soundcloud .results .result button:hover {
-	background: #000;
+.Factory .search.soundcloud .results .result.playing button {
+	background-color: #333;
+	background-image: url(../img/stop.png);
 }
 
 .Factory .search.soundcloud .results .result h2 {

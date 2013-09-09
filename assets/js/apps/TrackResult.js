@@ -1,16 +1,23 @@
 define([
 	'mustache',
+	'signals',
 	'text!templates/ResultTrack.tpl',
 	'lib/waveform'
-], function(mustache, tpl_ResultTrack) {
+], function(mustache, signals, tpl_ResultTrack) {
 
 	var options = null,
 		$container = null,
 		$wrap = null,
-		$wave = null;
+		$wave = null,
+		sound = null;
 
 	TrackResult = function(options) {
 		this.options = options;
+
+		this.events = {
+			'play': new signals.Signal(),
+			'stop': new signals.Signal(),
+		}
 
 	};
 
@@ -42,6 +49,34 @@ define([
 
 				}
 			});
+
+			this.$wrap.find('button').on({
+				'click': function(e) {
+					if(!this.$wrap.hasClass('playing')) {
+						this.play();
+					}
+					else {
+						this.stop();
+					}
+					e.stopPropagation();
+				}.bind(this)
+			});
+		},
+
+		play: function() {
+			this.$wrap.addClass('playing');
+			SC.stream('/tracks/'+this.options.datas.id, function(sound) {
+				this.sound = sound;
+				this.sound.play();
+				this.events.play.dispatch();
+			}.bind(this));
+		},
+
+		stop: function() {
+			debug('stop');
+			this.$wrap.removeClass('playing');
+			this.sound.stop();
+			this.events.stop.dispatch(this.sound);
 		}
 	};
 
