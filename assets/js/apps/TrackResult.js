@@ -1,9 +1,9 @@
 define([
 	'mustache',
 	'signals',
-	'text!templates/ResultTrack.tpl',
-	'lib/waveform'
-], function(mustache, signals, tpl_ResultTrack) {
+	'text!templates/resultTrack.tpl',
+	'apps/Wave'
+], function(mustache, signals, tpl_resultTrack, Wave) {
 
 	var options = null,
 		$container = null,
@@ -17,13 +17,14 @@ define([
 		this.events = {
 			'play': new signals.Signal(),
 			'stop': new signals.Signal(),
+			'select': new signals.Signal()
 		}
 
 	};
 
 	TrackResult.prototype = {
 		getNode: function() {
-			return mustache.render(tpl_ResultTrack, {
+			return mustache.render(tpl_resultTrack, {
 				title: this.options.datas.title,
 				user: this.options.datas.user.username
 			});
@@ -32,16 +33,16 @@ define([
 		init: function(wrap) {
 			this.$wrap = $(wrap);
 			this.$wave = this.$wrap.find('.wave');
-			var waveform = new Waveform({
+			var waveform = new Wave({
 				container: this.$wave[0],
-				innerColor: "#fff"
+				innerColor: "#fff",
+				datas: this.options.datas
 			});
-			waveform.dataFromSoundCloudTrack(this.options.datas);
 
 			this.$wrap.on({
 				'click': function() {
-					
-				},
+					this.select();
+				}.bind(this),
 				'mouseover': function() {
 
 				},
@@ -52,6 +53,7 @@ define([
 
 			this.$wrap.find('button').on({
 				'click': function(e) {
+					debug('click button')
 					if(!this.$wrap.hasClass('playing')) {
 						this.play();
 					}
@@ -73,10 +75,15 @@ define([
 		},
 
 		stop: function() {
-			debug('stop');
 			this.$wrap.removeClass('playing');
-			this.sound.stop();
+			if(this.sound)
+				this.sound.stop();
 			this.events.stop.dispatch(this.sound);
+		},
+
+		select: function() {
+			this.events.select.dispatch(this.options.datas);
+			this.stop();
 		}
 	};
 

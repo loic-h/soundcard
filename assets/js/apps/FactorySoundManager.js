@@ -1,10 +1,9 @@
 define([
 	'mustache',
-	'text!templates/FactorySoundManager.tpl',
 	'apps/FactoryTrack',
 	'apps/SearchManager',
 	'apps/TrackResult'
-], function(mustache, tpl_FactorySoundManager, FactoryTrack, SearchManager) {
+], function(mustache, FactoryTrack, SearchManager) {
 
 	var $container = null,
 		$remote = null,
@@ -21,6 +20,9 @@ define([
 		bind_addDragEnd = null,
 		searchManager = null,
 		playingSound = null,
+		playingTrack = null,
+		tracks = null,
+		currentTrack = null,
 		client_id = '77f88e1586bf6138efb00fe095e69a87',
 		redirect_uri = 'http://soundcard.lan/request.php?t=soundcloud';
 
@@ -29,7 +31,6 @@ define([
 			debug('FactorySoundManager::startup');
 
 			$container = options.container;
-			$container.append(mustache.render(tpl_FactorySoundManager));
 
 			$remote = $container.find('.remote');
 
@@ -103,15 +104,23 @@ define([
 		},
 
 		createTrack: function(x, y) {
-			var track = new FactoryTrack({
+			this.currentTrack = new FactoryTrack({
 				position: {
 					x: x,
 					y: y
 				}
 			});
 
+			this.currentTrack.events.play.add(function(track) {
+				if(this.playingTrack)
+					this.playingTrack.stop();
+				this.playingTrack = track;
+			}.bind(this));
+
 			searchManager.show();
 		},
+
+		/* SEARCH */
 
 		doSoundcloudSearch: function(query) {
 			// SC.get('/tracks', { q: query, license: 'cc-by-sa' }, function(tracks) {`
@@ -122,15 +131,17 @@ define([
 			SC.get('/tracks', { q: query, license: 'cc-by-sa' }, searchManager.onSearchComplete.bind(searchManager));
 		},
 
-		onSoundcloudSearchComplete: function(tracks) {
+		onSoundcloudSearchComplete: function(sounds) {
 			var nodes = [],
 				results = [];
-			tracks.forEach(function(track) {
+			this.sounds = sounds;
+			this.sounds.forEach(function(sound) {
 				var track_result = new TrackResult({
-					datas: track
+					datas: sound
 				}),
 				node = track_result.getNode();
 				track_result.events.play.add(this.onPlaySound.bind(this, track_result));
+				// track_result.events.select.add(searchManager.onResultClick.bind(searchManager));
 				nodes.push(node);
 				results.push(track_result);
 			}.bind(this));
@@ -142,17 +153,18 @@ define([
 		},
 
 		onPlaySound: function(track) {
-			debug('onPlaySound');
-			debug(this.playingSound);
 			if(this.playingSound) {
 				this.playingSound.stop();
 			}
 			this.playingSound = track;
 		},
 
-		onSoundcloudResultClick: function() {
-
-		},
+		onSoundcloudResultClick: function(index) {
+			var sound = this.sounds[index];
+			this.currentTrack.setSound(sound);
+			searchManager.reset();
+			searchManager.hide();
+		}
 	}
 
 });

@@ -84,20 +84,27 @@ header h1 img {
 	position: relative;
 }
 
+#mainWave {
+	height: 90px;
+	width: 100%;
+	border-bottom: #000 solid 1px;
+	margin-top: 15px;
+	overflow: hidden;
+}
+
+#mainWave canvas {
+	height: 200%;
+	width: 100%;
+}
+
 /**********************************
 	IMAGE FACTORY
 **********************************/
 
-.FactoryImageManager {
-	width: 100%;
-	height: 100%;
-	position: relative;
-}
-
 .imageContainer {
 	width: 100%;
 	height: 100%;
-	background: url(../img/bg-image-manager.gif) no-repeat center center;
+	/*background: url(../img/bg-image-manager.gif) no-repeat center center;*/
 	position: relative;
 }
 
@@ -110,25 +117,27 @@ header h1 img {
 	SOUND FACTORY
 **********************************/
 
-.FactorySoundManager {
-	padding: 15px;
-}
-
-.FactorySoundManager .remote {
+.remote {
 	position: relative;
+	width: 75px;
+	position: absolute;
+	right: -75px;
+	top: 30px;
+	text-align: right;
 }
 
-.FactorySoundManager .remote button {
+.remote button {
 	border-radius: 50%;
-	width: 42px;
-	height: 42px; 
+	width: 45px;
+	height: 45px; 
 	background: #fe3400 url(../img/bg-adD.png) no-repeat center center;
-	border: #333 solid 3px;
+	border: #333 solid 6px;
 	display: inline-block;
 	cursor: pointer;
+	cursor: move;
 }
 
-.FactorySoundManager .remote .manual {
+.remote .manual {
 	position: absolute;
 	color: white;
 	background: rgba(0,0,0,.8);
@@ -153,13 +162,28 @@ header h1 img {
 
 .tracksContainer .anchor {
 	border-radius: 50%;
-	width: 15px;
-	height: 15px; 
+	width: 45px;
+	height: 45px; 
 	background: #fe3400;
-	border: #333 solid 3px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	border: #333 solid 6px;
 	position: absolute;
 	display: block;
 	padding: 0;
+	-webkit-transform-origin: 50% 50%;
+	-webkit-transform: scale(0.5);
+}
+
+.tracksContainer .anchor.select {
+	-webkit-transform: scale(1);
+	background-image: url(../img/play-big.png);
+}
+
+.tracksContainer .anchor.playing {
+	background-color: #333;
+	-webkit-transform: scale(1);
+	background-image: url(../img/stop-big.png);
 }
 
 /**********************************
@@ -250,7 +274,7 @@ header h1 img {
 	text-align: center;
 }
 
-.Factory .search .results .remote a {
+.Factory .search .results .nav a {
 	border-radius: 50%;
 	width: 6px;
 	height: 6px; 
@@ -259,8 +283,8 @@ header h1 img {
 	margin: 6px;
 }
 
-.Factory .search .results .remote a:hover,
-.Factory .search .results .remote a.select {
+.Factory .search .results .nav a:hover,
+.Factory .search .results .nav a.select {
 	-webkit-transform-origin: 50% 50%;
 	-webkit-transform: scale(1.5);
 }
@@ -371,6 +395,6 @@ header h1 img {
 	font-size: 10px;
 }
 
-.Factory .search.soundcloud .results .remote a {
+.Factory .search.soundcloud .results .nav a {
 	background: #fff;
 }

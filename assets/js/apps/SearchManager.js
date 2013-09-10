@@ -1,9 +1,9 @@
 define([
 	'jquery',
 	'mustache',
-	'text!templates/SearchManager.tpl',
+	'text!templates/searchManager.tpl',
 	'signals'
-], function($, mustache, tpl_SearchManager, signals) {
+], function($, mustache, tpl_searchManager, signals) {
 
 	var $container = null,
 		$wrap = null,
@@ -26,12 +26,12 @@ define([
 		this.events.onSearchComplete.add(this.onSearchComplete.bind(this));
 
 		this.$container = $('.Factory');
-		this.$container.append(mustache.render(tpl_SearchManager, this.options.tpl_datas));
+		this.$container.append(mustache.render(tpl_searchManager, this.options.tpl_datas));
 		this.$wrap = this.$container.find('.search').last();
 		this.$input = this.$wrap.find('input');
 		this.$button = this.$wrap.find('button');
 		this.$content = this.$wrap.find('.content');
-		this.$remote = this.$wrap.find('.remote');
+		this.$remote = this.$wrap.find('.nav');
 			
 		this.$button.on('click', this.doSearch.bind(this));
 
@@ -120,6 +120,12 @@ define([
 
 		show: function() {
 			this.$wrap.show();
+		}, 
+
+		reset: function() {
+			this.$input.attr('value', '');
+			this.$content.html('');
+			this.$remote.html('');
 		}
 
 	};

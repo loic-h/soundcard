@@ -2,10 +2,9 @@ define([
 	'jquery',
 	'mustache',
 	'signals',
-	'text!templates/FactoryImageManager.tpl',
-	'text!templates/ResultInstagram.tpl',
+	'text!templates/resultInstagram.tpl',
 	'apps/SearchManager'
-], function($, mustache, signals, tpl_FactoryImageManager, tpl_ResultInstagram, SearchManager) {
+], function($, mustache, signals, tpl_resultInstagram, SearchManager) {
 
 	var $container = null,
 		$wrap = null,
@@ -26,7 +25,6 @@ define([
 			debug('FactoryImageManager::startup');
 
 			$container = options.container;
-			$container.append(mustache.render(tpl_FactoryImageManager));
 
 			$image = $container.find('.image');
 
@@ -70,7 +68,7 @@ define([
 			this.results.forEach(function(result) {
 				var src = result.images.thumbnail.url,
 					alt = "",
-					node = mustache.render(tpl_ResultInstagram, {src: src, alt: alt});
+					node = mustache.render(tpl_resultInstagram, {src: src, alt: alt});
 				nodes.push(node);
 			});
 			searchManager.populate(nodes);

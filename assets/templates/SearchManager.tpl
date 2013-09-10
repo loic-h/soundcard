@@ -7,6 +7,6 @@
 	<div class="results">
 		<div class="loader"></div>
 		<div class="content"></div>
-		<div class="remote"></div>
+		<div class="nav"></div>
 	</div>
 </div>

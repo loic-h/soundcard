@@ -1,9 +1,9 @@
 define([
 	'apps/FactoryImageManager',
 	'apps/FactorySoundManager',
-	'text!templates/Factory.tpl',
+	'text!templates/factory.tpl',
 	'mustache'
-], function(FactoryImageManager, FactorySoundManager, tpl_Factory, mustache) {
+], function(FactoryImageManager, FactorySoundManager, tpl_factory, mustache) {
 
 	var $container = null,
 		$wrap = null;
@@ -13,7 +13,7 @@ define([
 			debug('Factory::startup');
 
 			$container = options.container;
-			$container.append(mustache.render(tpl_Factory));
+			$container.append(mustache.render(tpl_factory));
 			$wrap = $container.find('.Factory');
 
 			FactoryImageManager.startup({
@@ -24,16 +24,20 @@ define([
 				container: $wrap
 			});
 
-			FactoryImageManager.events.onComplete.add(this.onImageComplete.bind(this));
+			FactoryImageManager.events.onComplete.add(this.onImageSelect.bind(this));
 			FactoryImageManager.events.onDrop.add(this.onImageDrop.bind(this));
 		},
 
-		onImageComplete: function() {
+		onImageSelect: function() {
 			debug('onImageComplete');
 		},
 
 		onImageDrop: function(x, y) {
 			FactorySoundManager.createTrack(x, y);
+		},
+
+		onSoundSelect: function() {
+
 		}
 	}
 });
