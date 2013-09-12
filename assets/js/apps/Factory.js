@@ -24,12 +24,21 @@ define([
 				container: $wrap
 			});
 
+			FactorySoundManager.hide();
+
 			FactoryImageManager.events.onComplete.add(this.onImageSelect.bind(this));
+			FactoryImageManager.events.onClick.add(this.onImageClick.bind(this));
 			FactoryImageManager.events.onDrop.add(this.onImageDrop.bind(this));
 		},
 
 		onImageSelect: function() {
 			debug('onImageComplete');
+			
+		},
+
+		onImageClick: function() {
+			debug('onImageClick');
+			// FactorySoundManager.show();
 		},
 
 		onImageDrop: function(x, y) {

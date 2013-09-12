@@ -35,9 +35,10 @@ define([
 			$container.append(tpl_anchor);
 			this.$anchor = $container.find('.anchor').last();
 			var width = this.$anchor.width();
+			this.top = this.options.position.y;
 			this.$anchor.css({
-				left: this.options.position.x - width / 2,
-				top: this.options.position.y - width / 2
+				left: this.options.position.x - width / 2 - 6,
+				top: this.top - width / 2 - 6
 			});
 
 			this.$anchor
@@ -80,9 +81,10 @@ define([
 				this.isPlaying = true;
 				if(!this.wave) {
 					this.wave = new Wave({
-						container: document.getElementById('mainWave'),
+						container: document.getElementById('waveContainer'),
 						innerColor: "#333",
-						datas: this.track
+						datas: this.track,
+						top: this.top
 					});
 				}
 				else {

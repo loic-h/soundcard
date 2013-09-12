@@ -70,30 +70,49 @@ header h1 img {
 
 .main {
 	padding: 30px;
-	text-align: center;
+	/*text-align: center;*/
 }
 
 /**********************************
 	FACTORY
 **********************************/
 .Factory {
-	width: 612px;
-	height: 612px;
-	border: #333 solid 1px;
 	display: inline-block;
 	position: relative;
 }
 
-#mainWave {
-	height: 90px;
-	width: 100%;
-	border-bottom: #000 solid 1px;
-	margin-top: 15px;
-	overflow: hidden;
+.Factory .intro {
+	text-align: left;
+	margin-bottom: 15px;
 }
 
-#mainWave canvas {
-	height: 200%;
+.factoryContainer {
+	width: 612px;
+	height: 612px;
+	border: #333 solid 1px;
+	position: relative;
+}
+
+#waveContainer {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 4;
+	opacity: 0.8;
+}
+
+#waveContainer .waveWrap {
+	height: 60px;
+	width: 100%;
+	position: absolute;
+	left: 0;
+}
+
+.waveWrap canvas {
+	height: 100%;
 	width: 100%;
 }
 
@@ -111,6 +130,7 @@ header h1 img {
 .imageContainer .image {
 	width: 100%;
 	height: 100%;
+	cursor: pointer;
 }
 
 /**********************************
@@ -173,6 +193,7 @@ header h1 img {
 	padding: 0;
 	-webkit-transform-origin: 50% 50%;
 	-webkit-transform: scale(0.5);
+	z-index: 5;
 }
 
 .tracksContainer .anchor.select {
@@ -187,41 +208,35 @@ header h1 img {
 }
 
 /**********************************
-	SEARC FACTORY
+	SEARCH FACTORY
 **********************************/
 
 .Factory .search { 
-	/*margin: 27px;
-	width: 552px;
-	height: 552px;*/
-	/*border: #FFF dashed 3px;
-	border-radius: 30px;*/
-	width: 100%;
-	height: 100%;
 	text-align: center;
 	font-size: 21px;
 	position: absolute;
-	top: 0;
-	left: 0;
+	top: 30px;
+	left: 30px;
+	bottom: 30px;
+	right: 30px;
+	z-index: 6;
 }
 
 .Factory .search .inputWrapper {
 	display: inline-block;
 	margin-bottom: 12px;
 	position: relative;
-	height: 42px;
-	width: 550px;
-	margin-top: 33px;
+	margin-top: 15px;
 }
 
 .Factory .search input, 
-.Factory .search button,
+.Factory .search .submit,
 .Factory .search span {
 	border: none;
 	padding: 6px 18px;
 	display: inline-block;
 	height: 42px;
-	width: 550px;
+	width: 525px;
 	font-size: inherit;
 }
 
@@ -237,14 +252,34 @@ header h1 img {
 
 .Factory .search input {
 	padding-left: 27px;
-	border-bottom: #000 solid 1px;
 	background: rgba(0,0,0,0.8);
 	color: white;
 }
 
-.Factory .search button {
-	background: rgba(0, 102, 204, 0.8);
+.Factory .search .submit {
+	background: rgb(0, 102, 204);
 	color: #fff;
+	position: relative;
+	padding: 0;
+}
+
+.Factory .search .submit button {
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	font-size: inherit;
+	border: none;
+	background: none;
+	color: inherit;
+}
+
+.Factory .search .submit .loader {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	bottom: 0;
+	background: rgb(0, 102, 204) url(../img/loader-instagram.gif) no-repeat center center;
 }
 
 ::-webkit-input-placeholder,
@@ -269,7 +304,7 @@ header h1 img {
 
 .Factory .search .results .content .page {
 	display: inline-block;
-	width: 612px;
+	width: 550px;
 	vertical-align: top;
 	text-align: center;
 }
@@ -293,19 +328,9 @@ header h1 img {
 
 }
 
-.Factory .search .loader {
-	position: absolute;
-	top: 0;
-	bottom: 30px;
-	left: 0;
-	right: 0;
-	background: url(../img/loader-instagram.gif) no-repeat center center;
-	z-index: 2;
-}
-
 .Factory .search .results .result {
 	display: inline-block;
-	margin: 21px;
+	margin: 12px;
 	border: rgba(250, 250, 250, 0) solid 3px;
 	opacity: 0.8;
 }
@@ -321,7 +346,7 @@ header h1 img {
 }
 
 .Factory .search.soundcloud {
-	background: rgba(0,0,0,0.8);
+	background: rgba(0,0,0,0.5);
 }
 
 .Factory .search.soundcloud input {
@@ -330,8 +355,16 @@ header h1 img {
 	padding-left: 18px;
 }
 
-.Factory .search.soundcloud button {
-	background: rgba(254, 52, 0, 0.8);
+.Factory .search.soundcloud ::-webkit-input-placeholder {
+	color: #333;
+}
+
+.Factory .search.soundcloud .submit {
+	background: rgb(254, 52, 0);
+}
+
+.Factory .search.soundcloud .submit .loader {
+	background: rgb(254, 52, 0) url(../img/loader-instagram.gif) no-repeat center center;
 }
 
 .Factory .search.soundcloud span {
@@ -354,13 +387,18 @@ header h1 img {
 	opacity: 1;
 }
 
-.Factory .search.soundcloud .results .result .wave {
-	width: 100%;
+.Factory .search.soundcloud .results .result .waveWrap {
 	height: 200%;
+	width: 100%;
 	position: absolute;
 	top: 0;
 	left: 0;
 	z-index: 0;
+}
+
+.Factory .search.soundcloud .results .result .wave {
+	width: 100%;
+	height: 100%;
 }
 
 .Factory .search.soundcloud .results .result .infos {

@@ -1,11 +1,13 @@
 <div class="search {{classe}}">
 	<div class="inputWrapper">
-		<input type="search" name="imagesearch" autofocus="autofocus" placeholder="{{placeholder}}" value="California" />
+		<input type="search" name="imagesearch" autofocus="autofocus" placeholder="{{placeholder}}" />
 		<span>#</span>
 	</div>
-	<button type="button">{{label}}</button>
-	<div class="results">
+	<div class="submit">
+		<button type="button">{{label}}</button>
 		<div class="loader"></div>
+	</div>
+	<div class="results">
 		<div class="content"></div>
 		<div class="nav"></div>
 	</div>

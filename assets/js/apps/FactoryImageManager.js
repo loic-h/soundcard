@@ -38,13 +38,15 @@ define([
 
 			this.events = {
 				onComplete: new signals.Signal(),
-				onDrop: new signals.Signal()
+				onDrop: new signals.Signal(),
+				onClick: new signals.Signal()
 			};
 			
 			searchManager = new SearchManager({
+				container: $wrap,
 				tpl_datas : {
 					classe: 'instagram',
-					label: 'Search on Instagram',
+					label: 'Add an Instagram',
 					placeholder: 'hashtag'
 				},
 				doSearch: this.doInstagramSearch.bind(this),
@@ -72,6 +74,7 @@ define([
 				nodes.push(node);
 			});
 			searchManager.populate(nodes);
+			$image.find('img').on('click', this.onClick.bind(this));
 		},
 
 		onInstagramResultClick: function(index) {
@@ -87,6 +90,10 @@ define([
 			}
 			this.events.onDrop.dispatch(e.offsetX, e.offsetY);
 			return false;
+		},
+
+		onClick: function(e) {
+			this.events.onClick.dispatch(e);
 		}
 	}
 });

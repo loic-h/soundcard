@@ -25,15 +25,17 @@ define([
 
 		this.events.onSearchComplete.add(this.onSearchComplete.bind(this));
 
-		this.$container = $('.Factory');
+		this.$container = this.options.container;
 		this.$container.append(mustache.render(tpl_searchManager, this.options.tpl_datas));
+		
 		this.$wrap = this.$container.find('.search').last();
 		this.$input = this.$wrap.find('input');
 		this.$button = this.$wrap.find('button');
 		this.$content = this.$wrap.find('.content');
 		this.$remote = this.$wrap.find('.nav');
-			
-		this.$button.on('click', this.doSearch.bind(this));
+		
+		this.bind_doSeach = this.doSearch.bind(this);
+		this.$button.on('click', this.bind_doSeach);
 
 		this.offset = typeof this.options.offset !== "undefined" ? this.options.offset : offset;
 
@@ -50,12 +52,10 @@ define([
 		},
 
 		hideLoader: function() {
-			debug('hideLoader');
 			this.$loader.hide();
 		},
 
 		showLoader: function() {
-			debug('showLoader');
 			this.$loader.show();
 		},
 
@@ -90,7 +90,13 @@ define([
 		},
 
 		doSearch: function() {
+			this.reset(true);
+			this.$button.off('click', this.bind_doSeach);
 			var query = this.$input.attr('value');
+			if(query == "") {
+				this.$button.on('click', this.bind_doSeach);
+				return false;
+			}
 			debug('SearchManager::doSearch w/ query "'+ query+'"');
 			this.showLoader();
 			this.options.doSearch.call(null, query);
@@ -98,6 +104,7 @@ define([
 
 		onSearchComplete: function(parameters) {
 			debug('SearchManager::onSearchComplete');
+			this.$button.on('click', this.bind_doSeach);
 			this.hideLoader();
 			this.options.onSearchComplete.call(null, parameters);
 		},
@@ -122,8 +129,8 @@ define([
 			this.$wrap.show();
 		}, 
 
-		reset: function() {
-			this.$input.attr('value', '');
+		reset: function(empty_input) {
+			if(!empty_input) this.$input.attr('value', '');
 			this.$content.html('');
 			this.$remote.html('');
 		}

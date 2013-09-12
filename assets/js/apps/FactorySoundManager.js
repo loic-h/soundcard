@@ -54,9 +54,10 @@ define([
 			$manual.hide();
 
 			searchManager = new SearchManager({
+				container: $('.imageContainer'),
 				tpl_datas : {
 					classe: 'soundcloud',
-					label: 'Search on Soundcloud',
+					label: 'Add a sound',
 					placeholder: 'search'
 				},
 				doSearch: this.doSoundcloudSearch.bind(this),
@@ -164,6 +165,14 @@ define([
 			this.currentTrack.setSound(sound);
 			searchManager.reset();
 			searchManager.hide();
+		},
+
+		hide: function() {
+			$remote.hide();
+		},
+
+		show: function() {
+			$remote.show();
 		}
 	}
 
