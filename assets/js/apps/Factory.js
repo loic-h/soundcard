@@ -36,9 +36,11 @@ define([
 			
 		},
 
-		onImageClick: function() {
+		onImageClick: function(e) {
 			debug('onImageClick');
 			// FactorySoundManager.show();
+			debug(e);
+			FactorySoundManager.createTrack(e.offsetX, e.offsetY);
 		},
 
 		onImageDrop: function(x, y) {

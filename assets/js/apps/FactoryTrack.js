@@ -2,8 +2,9 @@ define([
 	'jquery',
 	'mustache',
 	'text!templates/anchor.tpl',
-	'signals'
-], function($, mustache, tpl_anchor, signals) {
+	'signals',
+	'apps/Sound'
+], function($, mustache, tpl_anchor, signals, Sound) {
 
 	var options = null,
 		$anchor = null,
@@ -37,20 +38,22 @@ define([
 			var width = this.$anchor.width();
 			this.top = this.options.position.y;
 			this.$anchor.css({
-				left: this.options.position.x - width / 2 - 6,
-				top: this.top - width / 2 - 6
+				left: this.options.position.x - width / 2,
+				top: this.top - width / 2
 			});
 
 			this.$anchor
 				.addClass('select')
 				.on({
-					'click': function() {
+					'click': function(e) {
+						debug('click');
 						if(this.isPlaying) {
 							this.stop();
 						}
 						else {
 							this.play();
 						}
+						e.stopPropagation()
 					}.bind(this),
 					'mouseover': function() {
 						if(!this.isPlaying) {
@@ -66,7 +69,14 @@ define([
 		},
 
 		setSound: function(track) {
-			this.track = track;
+			this.sound = new Sound({
+				datas: track,
+				wave: {
+					container: document.getElementById('waveContainer'),
+					innerColor: "#333",
+					top: this.top
+				}
+			});
 			this.out();
 		},
 
@@ -75,33 +85,37 @@ define([
 		},
 
 		play: function() {
-			SC.stream('/tracks/'+this.track.id, function(sound) {
-				this.sound = sound;
-				sound.play();
+			// SC.stream('/tracks/'+this.track.id, function(sound) {
+			// 	this.sound = sound;
+			// 	sound.play();
+			// 	this.isPlaying = true;
+			// 	if(!this.wave) {
+			// 		this.wave = new Wave({
+			// 			container: document.getElementById('waveContainer'),
+			// 			innerColor: "#333",
+			// 			datas: this.track,
+			// 			top: this.top
+			// 		});
+			// 	}
+			// 	else {
+			// 		this.wave.show();
+			// 	}
+			// 	this.events.play.dispatch(this);
+			// }.bind(this));
+			this.sound.play(function() {
 				this.isPlaying = true;
-				if(!this.wave) {
-					this.wave = new Wave({
-						container: document.getElementById('waveContainer'),
-						innerColor: "#333",
-						datas: this.track,
-						top: this.top
-					});
-				}
-				else {
-					this.wave.show();
-				}
 				this.events.play.dispatch(this);
 			}.bind(this));
 			this.$anchor.addClass('playing');
 		},
 
 		stop: function() {
+			debug('FactoryTrack::stop');
 			if(this.sound){
 				this.sound.stop();
-				this.sound = null;
 				this.$anchor.removeClass('playing');
 				this.isPlaying = false;
-				this.wave.hide();
+				// this.wave.hide();
 			}
 		}
 

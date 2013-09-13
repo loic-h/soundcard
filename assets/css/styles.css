@@ -30,6 +30,7 @@ input:focus, select:focus, textarea:focus, button:focus {
 
 button {
 	cursor: pointer;
+	border: none;
 }
 
 /* Prevent the text contents of draggable elements from being selectable. */
@@ -130,7 +131,17 @@ header h1 img {
 .imageContainer .image {
 	width: 100%;
 	height: 100%;
+}
+
+.imageContainer .activeArea {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 10;
 	cursor: pointer;
+	display: none;
 }
 
 /**********************************
@@ -178,33 +189,36 @@ header h1 img {
 	bottom: 0;
 	left: 0;
 	right: 0;
+	z-index: 18;
 }
 
 .tracksContainer .anchor {
 	border-radius: 50%;
 	width: 45px;
 	height: 45px; 
-	background: #fe3400;
+	background: #333;
 	background-repeat: no-repeat;
 	background-position: center center;
-	border: #333 solid 6px;
+	background-image: url(../img/btn-wave-3.png);
 	position: absolute;
 	display: block;
 	padding: 0;
 	-webkit-transform-origin: 50% 50%;
-	-webkit-transform: scale(0.5);
+	/*-webkit-transform: scale(0.5);*/
 	z-index: 5;
+	opacity: 0.5;
 }
 
 .tracksContainer .anchor.select {
-	-webkit-transform: scale(1);
-	background-image: url(../img/play-big.png);
+	/*-webkit-transform: scale(1);*/
+	/*background-image: url(../img/play-big.png);*/
+	opacity: 1;
 }
 
 .tracksContainer .anchor.playing {
-	background-color: #333;
-	-webkit-transform: scale(1);
+	background-color: #fe3400;
 	background-image: url(../img/stop-big.png);
+	opacity: 1;
 }
 
 /**********************************
@@ -219,7 +233,7 @@ header h1 img {
 	left: 30px;
 	bottom: 30px;
 	right: 30px;
-	z-index: 6;
+	z-index: 20;
 }
 
 .Factory .search .inputWrapper {
@@ -332,7 +346,7 @@ header h1 img {
 	display: inline-block;
 	margin: 12px;
 	border: rgba(250, 250, 250, 0) solid 3px;
-	opacity: 0.8;
+	/*opacity: 0.8;*/
 }
 
 .Factory .search .results .result:hover,
@@ -380,7 +394,7 @@ header h1 img {
 	margin-bottom: 12px;
 	overflow: hidden;
 	position: relative;
-
+	cursor: pointer;
 }
 
 .Factory .search.soundcloud .results .result.playing {
@@ -399,6 +413,7 @@ header h1 img {
 .Factory .search.soundcloud .results .result .wave {
 	width: 100%;
 	height: 100%;
+	opacity: 0.8;
 }
 
 .Factory .search.soundcloud .results .result .infos {
@@ -411,14 +426,23 @@ header h1 img {
 
 .Factory .search.soundcloud .results .result button {
 	border-radius: 50%;
-	width: 21px;
-	height: 21px; 
-	background: #fe3400 url(../img/play.png) no-repeat center center;
+	width: 22px;
+	height: 22px; 
+	background: #fe3400 url(../img/play.png) no-repeat top left;
 	padding: 0;
 }
 
-.Factory .search.soundcloud .results .result.playing button {
+.Factory .search.soundcloud .results .result button.add {
+	background-image: url(../img/add.png);
+}
+
+.Factory .search.soundcloud .results .result.playing button.play,
+.Factory .search.soundcloud .results .result button.over,
+.Factory .search.soundcloud .results .result button:hover {
 	background-color: #333;
+}
+
+.Factory .search.soundcloud .results .result.playing button.play {
 	background-image: url(../img/stop.png);
 }
 

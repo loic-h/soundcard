@@ -16,6 +16,9 @@
 			<div id="waveContainer">
 
 			</div>
+			<div class="activeArea">
+
+			</div>
 		</div>
 		<div class="remote">
 			<button type="button" draggable="true"></button>

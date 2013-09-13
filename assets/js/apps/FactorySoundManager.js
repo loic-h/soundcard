@@ -19,7 +19,7 @@ define([
 		bind_addDragStart = null,
 		bind_addDragEnd = null,
 		searchManager = null,
-		playingSound = null,
+		playingResult = null,
 		playingTrack = null,
 		tracks = null,
 		currentTrack = null,
@@ -113,7 +113,7 @@ define([
 			});
 
 			this.currentTrack.events.play.add(function(track) {
-				if(this.playingTrack)
+				if(this.playingTrack && this.currentTrack != this.playingTrack)
 					this.playingTrack.stop();
 				this.playingTrack = track;
 			}.bind(this));
@@ -136,7 +136,7 @@ define([
 			var nodes = [],
 				results = [];
 			this.sounds = sounds;
-			this.sounds.forEach(function(sound) {
+			sounds.forEach(function(sound) {
 				var track_result = new TrackResult({
 					datas: sound
 				}),
@@ -145,6 +145,7 @@ define([
 				// track_result.events.select.add(searchManager.onResultClick.bind(searchManager));
 				nodes.push(node);
 				results.push(track_result);
+				// this.sounds.push(track_result.getSound());
 			}.bind(this));
 			searchManager.populate(nodes);
 			var $results = searchManager.$wrap.find('.result');
@@ -153,11 +154,16 @@ define([
 			});
 		},
 
-		onPlaySound: function(track) {
-			if(this.playingSound) {
-				this.playingSound.stop();
+		onPlaySound: function(result) {
+			debug('FactorySoundManager::onPlaySound');
+			debug(this.playingResult);
+			debug(result)
+			debug(this.playingResult != result);
+			if(this.playingResult && this.playingResult != result) {
+				debug('yo');
+				this.playingResult.stop();
 			}
-			this.playingSound = track;
+			this.playingResult = result;
 		},
 
 		onSoundcloudResultClick: function(index) {

@@ -11,6 +11,7 @@ define([
 		wrap = null,
 		$loader = null,
 		$image = null,
+		$active = null,
 
 		instagramUrl = 'https://api.instagram.com/v1/tags/{{tag}}/media/recent?callback=?',
 		access_parameters = {
@@ -25,8 +26,8 @@ define([
 			debug('FactoryImageManager::startup');
 
 			$container = options.container;
-
 			$image = $container.find('.image');
+			$active = $container.find('.tracksContainer');
 
 			$wrap = $container.find('.imageContainer');
 			wrap = $container.find('.imageContainer')[0];
@@ -74,7 +75,7 @@ define([
 				nodes.push(node);
 			});
 			searchManager.populate(nodes);
-			$image.find('img').on('click', this.onClick.bind(this));
+			// $image.find('img').on('click', this.onClick.bind(this));
 		},
 
 		onInstagramResultClick: function(index) {
@@ -82,6 +83,8 @@ define([
 			$image.append('<img src="'+selection.images.standard_resolution.url+'" />');
 			searchManager.hide();
 			this.events.onComplete.dispatch();
+			// $active.show();
+			$active.on('click', this.onClick.bind(this));
 		},
 
 		onDrop: function(e) {

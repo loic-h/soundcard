@@ -33,31 +33,43 @@ define([
 		init: function(wrap) {
 			this.$wrap = $(wrap);
 			this.$wave = this.$wrap.find('.wave');
-			var waveform = new Wave({
-				container: this.$wave[0],
-				innerColor: "#fff",
-				datas: this.options.datas
-			});
+			this.$addButton = this.$wrap.find('.add');
+			// var waveform = new Wave({
+			// 	container: this.$wave[0],
+			// 	innerColor: "#fff",
+			// 	datas: this.options.datas
+			// });
 
-			this.$wrap.on({
-				'click': function() {
-					this.select();
-				}.bind(this),
-				'mouseover': function() {
-
-				},
-				'mouseout': function() {
-
+			this.sound = new Sound({
+				datas: this.options.datas,
+				wave: {
+					container: this.$wave[0],
+					innerColor: "#fff",
+					datas: this.options.datas
 				}
 			});
 
-			this.$wrap.find('button').on({
+			this.$addButton.on({
+				'click': function() {
+					this.select();
+				}.bind(this)
+				// 'mouseover': function() {
+				// 	this.$addButton.addClass('over');
+				// }.bind(this),
+				// 'mouseout': function() {
+				// 	this.$addButton.removeClass('over');
+				// }.bind(this)
+			});
+
+			this.$wrap.find('button.play').on({
 				'click': function(e) {
 					debug('click button')
 					if(!this.$wrap.hasClass('playing')) {
+						debug(1);
 						this.play();
 					}
 					else {
+						debug(2);
 						this.stop();
 					}
 					e.stopPropagation();
@@ -66,15 +78,16 @@ define([
 		},
 
 		play: function() {
+			debug('TrackResult::plzy');
 			this.$wrap.addClass('playing');
-			SC.stream('/tracks/'+this.options.datas.id, function(sound) {
-				this.sound = sound;
-				this.sound.play();
+			this.sound.play(function() {
 				this.events.play.dispatch();
 			}.bind(this));
+			this.playingSound = this.sound;
 		},
 
 		stop: function() {
+			debug('TrackResult::stop');
 			this.$wrap.removeClass('playing');
 			if(this.sound)
 				this.sound.stop();
@@ -82,8 +95,13 @@ define([
 		},
 
 		select: function() {
+			debug('trackResult::select')
 			this.events.select.dispatch(this.options.datas);
 			this.stop();
+		},
+
+		getSound: function() {
+			return this.sound;
 		}
 	};
 
