@@ -1,3 +1,13 @@
+/*
+ *	Wave.js
+ *
+ *	Wave object. Create wave canvas from soundcloud informations.
+ *	Use the waveform.js library (http://waveformjs.org/)
+ *
+ *	@ Loïc Hamet
+ */
+ 
+
 define([
 	'mustache',
 	'text!templates/wave.tpl',
@@ -16,18 +26,16 @@ define([
 		});
 		this.$wave = $(this.waveform.canvas);
 		this.waveform.dataFromSoundCloudTrack(this.options.datas);
-		// if(this.options.top)
-		// 	this.$wrap.css('top', this.options.top - 30);
 	};
 
 	Wave.prototype = {
 
 		show: function() {
-			this.$wave.show();
+			this.$wrap.show();
 		},
 
 		hide: function() {
-			this.$wave.hide();
+			this.$wrap.hide();
 		},
 
 		getWidth: function() {

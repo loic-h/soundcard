@@ -1,3 +1,11 @@
+/*
+ *	FactoryImageManager.js
+ *
+ *	Manage the images in the application (search, disposition...)
+ *
+ *	@ Loïc Hamet
+ */
+
 define([
 	'jquery',
 	'mustache',

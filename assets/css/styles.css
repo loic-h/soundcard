@@ -28,6 +28,11 @@ input:focus, select:focus, textarea:focus, button:focus {
     outline: none;
 }
 
+input {
+	-moz-box-sizing: border-box;
+     box-sizing: border-box;
+}
+
 button {
 	cursor: pointer;
 	border: none;
@@ -71,7 +76,6 @@ header h1 img {
 
 .main {
 	padding: 30px;
-	/*text-align: center;*/
 }
 
 /**********************************
@@ -135,7 +139,6 @@ header h1 img {
 .imageContainer {
 	width: 100%;
 	height: 100%;
-	/*background: url(../img/bg-image-manager.gif) no-repeat center center;*/
 	position: relative;
 }
 
@@ -184,9 +187,7 @@ header h1 img {
 	color: white;
 	background: rgba(0,0,0,.8);
 	top: -150%;
-	/*left: 25%;*/
 	padding: 18px 30px;
-	/*border-radius: 3px;*/
 	left: 50%;
 	width: 400px;	
 	margin: 0: auto;
@@ -215,14 +216,11 @@ header h1 img {
 	display: block;
 	padding: 0;
 	-webkit-transform-origin: 50% 50%;
-	/*-webkit-transform: scale(0.5);*/
 	z-index: 5;
 	opacity: 0.5;
 }
 
 .tracksContainer .anchor.select {
-	/*-webkit-transform: scale(1);*/
-	/*background-image: url(../img/play-big.png);*/
 	opacity: 1;
 }
 
@@ -307,8 +305,22 @@ header h1 img {
 	background: rgb(0, 102, 204) url(../img/loader-instagram.gif) no-repeat center center;
 }
 
-::-webkit-input-placeholder,
 .Factory .search span {
+	color: rgba(255, 255, 255, 0.5);
+	font-style: italic;
+}
+
+::-webkit-input-placeholder {
+	color: rgba(255, 255, 255, 0.5);
+	font-style: italic;
+}
+
+:-moz-placeholder {
+	color: rgba(255, 255, 255, 0.5);
+	font-style: italic;
+}
+
+::-moz-placeholder {
 	color: rgba(255, 255, 255, 0.5);
 	font-style: italic;
 }
@@ -362,7 +374,6 @@ header h1 img {
 
 .Factory .search .results .result:hover,
 .Factory .search .results .result.select {
-	/*border-color: rgba(0, 102, 204, 0.8);*/
 	opacity: 1;
 }
 
@@ -389,7 +400,7 @@ header h1 img {
 }
 
 .Factory .search.soundcloud .submit .loader {
-	background: rgb(254, 52, 0) url(../img/loader-instagram.gif) no-repeat center center;
+	background: rgb(254, 52, 0) url(../img/loader-soundcloud.gif) no-repeat center center;
 }
 
 .Factory .search.soundcloud span {

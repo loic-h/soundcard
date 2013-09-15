@@ -1,3 +1,11 @@
+/*
+ *	TrackResukt.js
+ *
+ *	Sound object. Create and manage a sound.
+ *
+ *	@ Loïc Hamet
+ */
+
 define([
 	'mustache',
 	'signals',
@@ -34,11 +42,6 @@ define([
 			this.$wrap = $(wrap);
 			this.$wave = this.$wrap.find('.wave');
 			this.$addButton = this.$wrap.find('.add');
-			// var waveform = new Wave({
-			// 	container: this.$wave[0],
-			// 	innerColor: "#fff",
-			// 	datas: this.options.datas
-			// });
 
 			this.sound = new Sound({
 				datas: this.options.datas,
@@ -52,23 +55,15 @@ define([
 				'click': function() {
 					this.select();
 				}.bind(this)
-				// 'mouseover': function() {
-				// 	this.$addButton.addClass('over');
-				// }.bind(this),
-				// 'mouseout': function() {
-				// 	this.$addButton.removeClass('over');
-				// }.bind(this)
 			});
 
 			this.$wrap.find('button.play').on({
 				'click': function(e) {
 					debug('click button')
 					if(!this.$wrap.hasClass('playing')) {
-						debug(1);
 						this.play();
 					}
 					else {
-						debug(2);
 						this.stop();
 					}
 					e.stopPropagation();
@@ -77,7 +72,7 @@ define([
 		},
 
 		play: function() {
-			debug('TrackResult::plzy');
+			debug('TrackResult::play');
 			this.$wrap.addClass('playing');
 			this.sound.play(function() {
 				this.events.play.dispatch();

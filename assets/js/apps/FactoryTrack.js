@@ -1,3 +1,11 @@
+/*
+ *	FactoryTrack.js
+ *
+ *	Manage a track displayed on the picture
+ *
+ *	@ Loïc Hamet
+ */
+
 define([
 	'jquery',
 	'mustache',
@@ -55,12 +63,12 @@ define([
 						}
 						e.stopPropagation()
 					}.bind(this),
-					'mouseover': function() {
+					'mouseenter': function() {
 						if(!this.isPlaying) {
 							this.$anchor.addClass('select');
 						}
 					}.bind(this),
-					'mouseout': function() {
+					'mouseleave': function() {
 						if(!this.isPlaying) {
 							this.$anchor.removeClass('select');
 						}
@@ -69,6 +77,7 @@ define([
 		},
 
 		setSound: function(track) {
+			debug('setSopund');
 			debug(track);
 			this.sound = new Sound({
 				datas: track,
@@ -93,23 +102,6 @@ define([
 		},
 
 		play: function() {
-			// SC.stream('/tracks/'+this.track.id, function(sound) {
-			// 	this.sound = sound;
-			// 	sound.play();
-			// 	this.isPlaying = true;
-			// 	if(!this.wave) {
-			// 		this.wave = new Wave({
-			// 			container: document.getElementById('waveContainer'),
-			// 			innerColor: "#333",
-			// 			datas: this.track,
-			// 			top: this.top
-			// 		});
-			// 	}
-			// 	else {
-			// 		this.wave.show();
-			// 	}
-			// 	this.events.play.dispatch(this);
-			// }.bind(this));
 			this.sound.play(function() {
 				this.isPlaying = true;
 				this.events.play.dispatch(this);
@@ -123,7 +115,6 @@ define([
 				this.sound.stop();
 				this.$anchor.removeClass('playing');
 				this.isPlaying = false;
-				// this.wave.hide();
 			}
 		}
 

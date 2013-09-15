@@ -1,4 +1,13 @@
-define([
+/*
+ *	Sound.js
+ *
+ *	Sound object. Create and manage a sound.
+ *	Can be associated with a Wave object.
+ *
+ *	@ Loïc Hamet
+ */
+
+ define([
 	'apps/Wave',
 	'signals'
 ],
@@ -59,7 +68,16 @@ function(Wave, signals) {
 			if(typeof sound !== "undefined") {
 				this.sound = sound;
 			}
-			this.sound.play();
+			var that = this;
+			that.duration = that.sound.duration;
+			this.sound.play({
+				whileloading: function() {
+					if(this.bytesLoaded / this.bytesTotal >= 1)
+						that.duration = that.sound.duration;
+					else
+						that.duration = this.durationEstimate;
+				}
+			});
 			if(this.callbackPlay)
 				this.callbackPlay.call(null);
 			this.$cursor.show();
@@ -80,7 +98,8 @@ function(Wave, signals) {
 		},
 
 		moveCursor: function(value) {
-			var left = value * this.waveWidth / this.sound.duration;
+			var left = value * this.waveWidth / this.duration;
+			// debug(value, this.waveWidth, this.sound.duration, left);
 			this.$cursor.css('left', left);
 		}
 	};

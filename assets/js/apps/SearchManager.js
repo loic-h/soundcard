@@ -1,3 +1,11 @@
+/*
+ *	SearchManager.js
+ *
+ *	Search object. Common to both Instagram and Soundcloud search managers
+ *
+ *	@ Loïc Hamet
+ */
+
 define([
 	'jquery',
 	'mustache',

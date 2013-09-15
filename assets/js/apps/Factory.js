@@ -1,3 +1,11 @@
+/*
+ *	Factory.js
+ *
+ *	Main object for the image creation (in opposition of an eventual Gallery)
+ *
+ *	@ Loïc Hamet
+ */
+
 define([
 	'apps/FactoryImageManager',
 	'apps/FactorySoundManager',
@@ -32,13 +40,10 @@ define([
 		},
 
 		onImageSelect: function() {
-			debug('onImageComplete');
 			
 		},
 
 		onImageClick: function(e) {
-			debug('onImageClick');
-			// FactorySoundManager.show();
 			debug(e);
 			FactorySoundManager.createTrack(e.offsetX, e.offsetY);
 		},

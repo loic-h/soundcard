@@ -1,3 +1,11 @@
+/*
+ *	FactorySoundManager.js
+ *
+ *	Manage the sounds in the application (search, disposition...)
+ *
+ *	@ Loïc Hamet
+ */
+
 define([
 	'mustache',
 	'apps/FactoryTrack',
@@ -97,11 +105,11 @@ define([
 		},
 
 		onAddDragStart: function(e) {
-			// debug(e.dataTransfer);
+			
 		},
 
 		onAddDragEnd: function(e) {
-			// debug(e);
+			
 		},
 
 		createTrack: function(x, y) {
@@ -113,8 +121,10 @@ define([
 			});
 
 			this.currentTrack.events.play.add(function(track) {
-				if(this.playingTrack && track != this.playingTrack)
+				if(this.playingTrack && track != this.playingTrack) {
 					this.playingTrack.stop();
+					this.playingTrack.out();
+				}
 				this.playingTrack = track;
 			}.bind(this));
 
@@ -137,10 +147,8 @@ define([
 				}),
 				node = track_result.getNode();
 				track_result.events.play.add(this.onPlaySound.bind(this, track_result));
-				// track_result.events.select.add(searchManager.onResultClick.bind(searchManager));
 				nodes.push(node);
 				results.push(track_result);
-				// this.sounds.push(track_result.getSound());
 			}.bind(this));
 			searchManager.populate(nodes);
 			var $results = searchManager.$wrap.find('.result');
@@ -159,6 +167,9 @@ define([
 
 		onSoundcloudResultClick: function(index) {
 			var sound = this.sounds[index];
+			if(this.playingResult) {
+				this.playingResult.stop();
+			}
 			this.currentTrack.setSound(sound);
 			searchManager.reset();
 			searchManager.hide();
