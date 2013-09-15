@@ -44,8 +44,7 @@ define([
 				datas: this.options.datas,
 				wave: {
 					container: this.$wave[0],
-					innerColor: "#fff",
-					datas: this.options.datas
+					innerColor: "#fff"
 				}
 			});
 

@@ -113,7 +113,7 @@ define([
 			});
 
 			this.currentTrack.events.play.add(function(track) {
-				if(this.playingTrack && this.currentTrack != this.playingTrack)
+				if(this.playingTrack && track != this.playingTrack)
 					this.playingTrack.stop();
 				this.playingTrack = track;
 			}.bind(this));
@@ -124,11 +124,6 @@ define([
 		/* SEARCH */
 
 		doSoundcloudSearch: function(query) {
-			// SC.get('/tracks', { q: query, license: 'cc-by-sa' }, function(tracks) {`
-			//   SC.stream("/tracks/"+tracks[0].id, function(sound){
-			// 	  sound.play();
-			// 	});
-			// });
 			SC.get('/tracks', { q: query, license: 'cc-by-sa' }, searchManager.onSearchComplete.bind(searchManager));
 		},
 
@@ -156,11 +151,7 @@ define([
 
 		onPlaySound: function(result) {
 			debug('FactorySoundManager::onPlaySound');
-			debug(this.playingResult);
-			debug(result)
-			debug(this.playingResult != result);
 			if(this.playingResult && this.playingResult != result) {
-				debug('yo');
 				this.playingResult.stop();
 			}
 			this.playingResult = result;

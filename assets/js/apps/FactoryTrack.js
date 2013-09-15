@@ -69,6 +69,7 @@ define([
 		},
 
 		setSound: function(track) {
+			debug(track);
 			this.sound = new Sound({
 				datas: track,
 				wave: {
@@ -77,6 +78,13 @@ define([
 					top: this.top
 				}
 			});
+			this.sound.wave.hide();
+			this.sound.events.play.add(function() {
+				this.wave.show();
+			}.bind(this.sound));
+			this.sound.events.stop.add(function() {
+				this.wave.hide();
+			}.bind(this.sound));
 			this.out();
 		},
 
