@@ -45,6 +45,6 @@ The application also use the following libraries :
 - [mustache](http://mustache.github.io/) for templating
 - [js-signals](http://millermedeiros.github.io/js-signals/) for event managing.
 
-
+The application has been tested on Chrome Version 29.0.1547.65
 
 Enjoy this application !
