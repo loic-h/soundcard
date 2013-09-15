@@ -28,7 +28,7 @@ Code
 The application is purely client-side. A potential gallery would need a server-side development.
 The javascript is based on the Asynchronous Module Definition (AMD) API by using [requireJS](http://requirejs.org/). The application is therefore cut in many modules easing the code updating and the factorization. 
 Here is an overview of the structure :
-<code>
+`
 - App
 	- Factory
 		-FactoryImageManager
@@ -38,7 +38,7 @@ Here is an overview of the structure :
 				- Sound
 					- Wave
 		- SearchManager
-</code>
+`
 The application also use the following libraries :
 - [jQuery](http://jquery.com/) for DOM manipulation.
 - [wafeform.js](http://waveformjs.org/) for wave displaying
