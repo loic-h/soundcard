@@ -11,7 +11,7 @@ require.config({
 		"jquery": "lib/jquery/js/jquery-1.8.3",
 		"root": "../..",
 		"mustache": "lib/mustache",
-		"templates": "../templates"
+		"templates": "../tpl"
 		// "soundcloud": "http://connect.soundcloud.com/sdk"
 	},
 	deps: [
